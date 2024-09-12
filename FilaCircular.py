@@ -105,33 +105,26 @@ class Fila:
         self.frente, self.atras = self.atras, self.frente
         self.atras.proximo = self.frente
 
-# Teste da Fila Circular
 fila = Fila()
 
-# Inserindo alunos
-fila.inserir(Aluno("João", "1111-1111", 20))
-fila.inserir(Aluno("Maria", "2222-2222", 22))
-fila.inserir(Aluno("Pedro", "3333-3333", 21))
+# Inserindo
+# fila.inserir(Aluno("Pedro", "3333-3333", 21))
 
-# Listando alunos
-print("Lista inicial de alunos:")
-fila.listar()
+# # Listando
+# print("Lista inicial de alunos:")
+#fila.listar()
 
-# Localizando aluno pelo nome
-print("\nLocalizando 'Maria':")
-fila.localizar("Maria")
+# # Localizando
+# fila.localizar("Maria")
 
-# Alterando aluno
-print("\nAlterando 'João':")
-fila.alterar("João", "João Silva", "4444-4444", 23)
-fila.listar()
+# # Alterando
+# fila.alterar("João", "João Silva", "4444-4444", 23)
+# fila.listar()
 
-# Excluindo aluno
-print("\nExcluindo primeiro aluno:")
-fila.excluir()
-fila.listar()
+# # Excluindo
+# fila.excluir()
+# fila.listar()
 
-# Invertendo a fila
-print("\nInvertendo a fila:")
-fila.inverter()
-fila.listar()
+# # Invertendo a fila
+# fila.inverter()
+# fila.listar()

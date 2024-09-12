@@ -3,12 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" /> -->
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <link rel="stylesheet" href="index.css">
     <title>Fila circular</title>
 </head>
 <body>
+    <h1 class="titulo">Fila Circular com listas encadeadas</h1>
 
+    <section class="container">
+        <h2 class="titulo_container">Adicionar aluno</h2>
+        
+        <form class="container_form">
+            <label for="">Nome</label>
+            <input type="text" id="nome">
+            <label for="">Telefone</label>
+            <input type="text" id="tel">
+            <label for="">Idade</label>
+            <input type="text" id="idade">
+            <button type="submit">Adicionar</button>
+        </form>
+    </section>
 </body>
 <py-script src="./FilaCircular.py"></py-script>
 </html>
