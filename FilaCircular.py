@@ -49,10 +49,11 @@ class Fila:
                 atual.aluno.nome = novoNome
                 atual.aluno.tel = novoTel
                 atual.aluno.idade = novoIdade
-                return f'Aluno {nome} alterado com sucesso para Nome: {novoNome}, Tel: {novoTel}, Idade: {novoIdade}.'
+                return f'\nAluno {nome} alterado com sucesso para Nome: {novoNome}, Tel: {novoTel}, Idade: {novoIdade}.\n'
             atual = atual.proximo
             if atual == self.frente:
-                return f'Aluno {nome} não encontrado!'
+                break
+        return f'\nAluno {nome} não encontrado!\n'
 
     def listar(self):
         if self.vazia():
@@ -69,8 +70,7 @@ class Fila:
 
     def localizar(self, nome):
         if self.vazia():
-            print('Fila vazia!')
-            return
+            return 'Fila vazia!'
 
         atual = self.frente
         encontrados = []
@@ -82,10 +82,10 @@ class Fila:
                 break
 
         if encontrados:
-            for aluno in encontrados:
-                print(f'Nome: {aluno.nome}, Telefone: {aluno.tel}, Idade: {aluno.idade}')
+            resultado = '\n'.join([f'Nome: {aluno.nome}, Telefone: {aluno.tel}, Idade: {aluno.idade}' for aluno in encontrados])
+            return '\nAlunos encontrados:\n' + resultado + '\n'
         else:
-            print('Nenhum aluno encontrado!')
+            return 'Nenhum aluno encontrado!'
 
     def inverter(self):
         if self.vazia() or self.frente == self.atras:
@@ -110,10 +110,20 @@ class Fila:
 
 fila = Fila()
 
-#Começo
+# Inserindo
+fila.inserir(Aluno('Estela', '7777-7777', 22))
+fila.inserir(Aluno('Lidia', '9999-9999', 20))
+fila.inserir(Aluno('Lorena', '5555-5555', 27))
+fila.inserir(Aluno('Hermanoteu', '6666-6666', 21))
+fila.inserir(Aluno('Yudi', '4008-8922', 25))
+fila.inserir(Aluno('Pedro', '3333-3333', 21))
+fila.inserir(Aluno('Pedro', '2222-2222', 24))
+fila.inserir(Aluno('João', '4444-4444', 23))
+
+#Começo da tela
 root = tk.Tk()
 root.title('Fila Circular')
-root.geometry('460x380')
+root.geometry('550x380')
 
 tk.Label(root, text='Nome').grid(row=1, column=0, padx=10, pady=5, sticky='e')
 tk.Label(root, text='Telefone').grid(row=2, column=0, padx=10, pady=5, sticky='e')
@@ -136,42 +146,52 @@ def adicionar():
     idade = inIdade.get()
 
     fila.inserir(Aluno(nome, tel, idade))
-    text.insert(tk.END, f'Aluno adicionado:\nNome: {nome},\nTel: {tel},\nIdade: {idade}\n')
+    text.insert(tk.END, f'\nAluno adicionado:\nNome: {nome},\nTel: {tel},\nIdade: {idade}\n')
 
 def listar():
-    text.insert(tk.END, f'Listando alunos: \n')
+    text.insert(tk.END, f'\nListando alunos: \n')
     text.insert(tk.END, fila.listar() + '\n')
 
 def editar():
     nome = inNome.get()
+    novoNome = inNome.get()
     novoTel = inTel.get()
     novaIdade = inIdade.get()
 
-    mensagem = fila.alterar(nome, novoTel=novoTel, novoIdade=novaIdade)
+    mensagem = fila.alterar(nome, novoNome=novoNome, novoTel=novoTel, novoIdade=novaIdade)
     text.insert(tk.END, mensagem + '\n')
+    
+    inNome.delete(0, tk.END)
+    inTel.delete(0, tk.END)
+    inIdade.delete(0, tk.END)
+
+    listar()
 
 def excluir():
     text.insert(tk.END, fila.excluir() + '\n')
     listar()
 
 def inverter():
-    fila.inverter()
-    print('Fila invertida!')
+    mensagem = fila.inverter()
+    text.insert(tk.END, '\n' + mensagem)
 
-btnTamanho = 10
+    listar()
 
-tk.Button(btnDiv, text='Adicionar', command=adicionar, width=btnTamanho).grid(row=5, column=0, padx=5, pady=10)
-tk.Button(btnDiv, text='Excluir', command=excluir, width=btnTamanho).grid(row=5, column=1, padx=5, pady=10)
-tk.Button(btnDiv, text='Listar', command=listar, width=btnTamanho).grid(row=5, column=2, padx=5, pady=10)
-tk.Button(btnDiv, text='Editar', command=editar, width=btnTamanho).grid(row=5, column=3, padx=5, pady=10)
-tk.Button(btnDiv, text='Inverter fila', command=inverter, width=btnTamanho).grid(row=5, column=4, padx=5, pady=10)
+def buscar():
+    nome = inNome.get()
+    resultado = fila.localizar(nome)
+    
+    text.insert(tk.END, resultado + '\n')
 
-text = tk.Text(root, height=10, width=50)
+tk.Button(btnDiv, text='Listar', command=listar, width=10).grid(row=5, column=0, padx=5, pady=10)
+tk.Button(btnDiv, text='Localizar', command=buscar, width=10).grid(row=5, column=1, padx=5, pady=10)
+tk.Button(btnDiv, text='Adicionar', command=adicionar, width=10).grid(row=5, column=2, padx=5, pady=10)
+tk.Button(btnDiv, text='Editar', command=editar, width=10).grid(row=5, column=3, padx=5, pady=10)
+tk.Button(btnDiv, text='Excluir', command=excluir, width=10).grid(row=5, column=4, padx=5, pady=10)
+tk.Button(btnDiv, text='Inverter fila', command=inverter, width=10).grid(row=5, column=5, padx=5, pady=10)
+
+text = tk.Text(root, height=11, width=60)
 text.grid(row=6, column=0, padx=10, pady=10, columnspan=5)
 
 #Final
 root.mainloop()
-
-# Inserindo
-fila.inserir(Aluno('Pedro', '3333-3333', 21))
-fila.inserir(Aluno('João Silva', '4444-4444', 23))
