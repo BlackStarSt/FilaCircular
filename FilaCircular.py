@@ -113,22 +113,22 @@ fila = Fila()
 #Começo
 root = tk.Tk()
 root.title('Fila Circular')
-root.geometry('350x350')
+root.geometry('460x380')
 
-tk.Label(root, text='Nome').grid(row=0)
-tk.Label(root, text='Telefone').grid(row=1)
-tk.Label(root, text='Idade').grid(row=2)
+tk.Label(root, text='Nome').grid(row=1, column=0, padx=10, pady=5, sticky='e')
+tk.Label(root, text='Telefone').grid(row=2, column=0, padx=10, pady=5, sticky='e')
+tk.Label(root, text='Idade').grid(row=3, column=0, padx=10, pady=5, sticky='e')
 
-inNome = tk.Entry(root)
-inTel = tk.Entry(root)
-inIdade = tk.Entry(root)
+inNome = tk.Entry(root, width=50)
+inTel = tk.Entry(root, width=50)
+inIdade = tk.Entry(root, width=50)
 
-inNome.grid(row=0, column=1)
-inTel.grid(row=1, column=1)
-inIdade.grid(row=2, column=1)
+inNome.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+inTel.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+inIdade.grid(row=3, column=1, padx=10, pady=5, sticky='w')
 
-text = tk.Text(root, height=15, width=40)
-text.grid(row=7, column=3, columnspan=2)
+btnDiv = tk.Frame(root)
+btnDiv.grid(row=4, column=0, columnspan=2, pady=10)
 
 def adicionar():
     nome = inNome.get()
@@ -158,11 +158,17 @@ def inverter():
     fila.inverter()
     print('Fila invertida!')
 
-tk.Button(root, text='Adicionar', command=adicionar).grid(row=5, column=0)
-tk.Button(root, text='Excluir', command=excluir).grid(row=5, column=1)
-tk.Button(root, text='Listar', command=listar).grid(row=5, column=2)
-tk.Button(root, text='Editar', command=editar).grid(row=5, column=4)
-tk.Button(root, text='Inverter fila', command=inverter).grid(row=5, column=5)
+btnTamanho = 10
+
+tk.Button(btnDiv, text='Adicionar', command=adicionar, width=btnTamanho).grid(row=5, column=0, padx=5, pady=10)
+tk.Button(btnDiv, text='Excluir', command=excluir, width=btnTamanho).grid(row=5, column=1, padx=5, pady=10)
+tk.Button(btnDiv, text='Listar', command=listar, width=btnTamanho).grid(row=5, column=2, padx=5, pady=10)
+tk.Button(btnDiv, text='Editar', command=editar, width=btnTamanho).grid(row=5, column=3, padx=5, pady=10)
+tk.Button(btnDiv, text='Inverter fila', command=inverter, width=btnTamanho).grid(row=5, column=4, padx=5, pady=10)
+
+text = tk.Text(root, height=10, width=50)
+text.grid(row=6, column=0, padx=10, pady=10, columnspan=5)
+
 #Final
 root.mainloop()
 
